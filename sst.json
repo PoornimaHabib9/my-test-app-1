@@ -1,0 +1,5 @@
+{
+  "name": "my-test-app-1",
+  "region": "us-east-1",
+  "main": "stacks/index.js"
+}
