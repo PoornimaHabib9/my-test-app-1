@@ -6,11 +6,7 @@ export default class MyStack extends sst.Stack {
 
     // Create a HTTP API
     const api = new sst.Api(this, "Api", {
-      "GET /getCourses": "src/getCourses.getCourses",
-      "POST /course": "src/addCourse.addCourse",
-      "GET /course/{id}": "src/getCourse.getCourse",
-      "PUT /course/{id}": "src/updateCourse.updateCourse",
-      "DELETE /course/{id}": "src/deleteCourse.deleteCourse",
+      "GET /": "src/lambda.handler"
     });
 
     // Show the endpoint in the output
