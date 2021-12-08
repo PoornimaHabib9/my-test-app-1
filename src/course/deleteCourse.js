@@ -6,7 +6,7 @@ export async function deleteCourse(event){
     let params={
         TableName:process.env.TABLE_NAME,
         Key:{
-            courseId:parseInt(event.pathParameters.id),
+            courseId:event.pathParameters.id,
             userId:event.requestContext.authorizer.iam.cognitoIdentity.identityId
         }
     }

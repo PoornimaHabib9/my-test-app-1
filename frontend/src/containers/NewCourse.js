@@ -1,16 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Row } from "react-bootstrap";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useFormFields } from "../lib/hooksLib";
 import { API } from 'aws-amplify'
 
 export default function NewCourse() {
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
+    const { id } = useParams()
+    const [course, setCourse] = useState()
     const [fields, handleFieldsChange] = useFormFields({
-        CourseName: "",
-        CourseDescription: ""
+        CourseName: (course && course.courseName) ? course.courseName : "",
+        CourseDescription: (course && course.courseDescription) ? course.courseDescription : "",
     })
+
+    useEffect(() => {
+        function getCourse(id) {
+            return API.get("course", `/course/${id}`)
+        }
+
+        async function onLoad() {
+            setIsLoading(true)
+            try {
+                let result = await getCourse(id)
+                setCourse(result)
+                setIsLoading(false)
+            }catch(e){
+                setIsLoading(false)
+            }
+        }
+
+        onLoad()
+    }, [id])
 
     return (
         <div>
@@ -40,11 +61,14 @@ export default function NewCourse() {
         event.preventDefault()
         setIsLoading(true)
         if (fields.CourseName.length > 0) {
-            try{
+            try {
                 await createCourse()
                 setIsLoading(false)
-            }catch(e){
+                window.alert("success")
+                navigate('/')
+            } catch (e) {
                 setIsLoading(false)
+                window.alert("Unable to insert")
             }
         } else {
             setIsLoading(false)
@@ -52,12 +76,12 @@ export default function NewCourse() {
         }
     }
 
-    function createCourse(){
-        return API.post("course","/course",{
+    function createCourse() {
+        // console.log(API.post)
+        return API.post("course", "/course", {
             body: {
-                CourseName:fields.CourseName,
-                CourseDescription:fields.CourseDescription,
-                courseId:4
+                courseName: fields.CourseName,
+                courseDescription: fields.CourseDescription,
             }
         })
     }

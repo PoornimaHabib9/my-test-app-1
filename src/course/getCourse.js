@@ -8,7 +8,7 @@ export async function getCourse(event){
     let params={
         TableName:process.env.TABLE_NAME,
         Key:{
-            courseId:parseInt(courseId),
+            courseId:courseId,
             userId:event.requestContext.authorizer.iam.cognitoIdentity.identityId
         }
     }

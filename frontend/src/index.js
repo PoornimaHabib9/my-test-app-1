@@ -23,7 +23,7 @@ var configs={
   API: {
     endpoints: [
       {
-        name: "notes",
+        name: "course",
         endpoint: config.apiGateway.URL,
         region: config.apiGateway.REGION
       },
@@ -31,7 +31,6 @@ var configs={
   }
 }
 Amplify.configure(configs);
-console.log(configs)
 Auth.configure(configs)
 
 ReactDOM.render(

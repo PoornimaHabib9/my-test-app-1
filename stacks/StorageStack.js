@@ -7,15 +7,24 @@ export default class StorageStack extends sst.Stack{
     constructor(scope,id,props){
         super(scope,id,props)
 
-        this.table=new sst.Table(this,"course",{
+        this.table=new sst.Table(this,"courses",{
             fields:{
-                courseId:sst.TableFieldType.NUMBER,
+                courseId:sst.TableFieldType.STRING,
                 userId:TableFieldType.STRING,
                 courseName:sst.TableFieldType.STRING,
                 courseDescription:sst.TableFieldType.STRING
             },
             primaryIndex:{partitionKey:"courseId"}
         })
+        // this.table=new sst.Table(this,"course",{
+        //     fields:{
+        //         courseId:sst.TableFieldType.NUMBER,
+        //         userId:TableFieldType.STRING,
+        //         courseName:sst.TableFieldType.STRING,
+        //         courseDescription:sst.TableFieldType.STRING
+        //     },
+        //     primaryIndex:{partitionKey:"courseId"}
+        // })
 
         this.bucket = new sst.Bucket(this,"uploads")
     }

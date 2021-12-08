@@ -39,7 +39,7 @@ export default function SignUp() {
                     <Form.Control type="password" placeholder="Confirm Password" value={fields.ConfirmPassword} onChange={handleFieldsChange} />
                 </Form.Group>
                 <Button variant="primary" type="submit" onClick={VerifySignUp}>
-                {isLoading?"Loading":"Submit"}
+                {isLoading?"Loading":"Sign Up"}
                 </Button>
             </Form>
         )

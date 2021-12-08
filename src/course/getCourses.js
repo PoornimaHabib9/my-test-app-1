@@ -15,7 +15,7 @@ export async function getCourses(event) {
         return {
             statusCode: 200,
             headers: { "Content-Type": "text/plain" },
-            body: `All Courses ${JSON.stringify(result)}`,
+            body: JSON.stringify(result.Items),
         };
     } catch (err) {
         console.log(err)

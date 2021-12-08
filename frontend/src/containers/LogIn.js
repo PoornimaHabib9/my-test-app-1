@@ -8,6 +8,7 @@ export default function LogIn() {
     const [Email, setEmail] = useState("")
     const [Password, setPassword] = useState("")
     const { userHasAuthenticated } = useAppContext()
+    const [isLoading,setIsLoading]=useState(false)
     const navigate = useNavigate()
 
     return (
@@ -25,13 +26,14 @@ export default function LogIn() {
                 <Form.Control type="password" placeholder="Password" value={Password} onChange={(e) => setPassword(e.target.value)} />
             </Form.Group>
             <Button variant="primary" type="submit" onClick={LogIn}>
-                Submit
+                {isLoading ? "Loading" : "Log In"}
             </Button>
         </Form>
     )
 
     async function LogIn(event) {
         event.preventDefault()
+        setIsLoading(true)
         if (Email.length > 0 && Password.length > 0) {
 
             try {
@@ -39,12 +41,15 @@ export default function LogIn() {
                 // window.alert("success logged in")
                 navigate("/")
                 userHasAuthenticated(true)
+                setIsLoading(false)
             } catch (e) {
                 window.alert("err")
+                setIsLoading(false)
             }
 
         } else {
             window.alert("Enter UserName or Password")
+            setIsLoading(false)
         }
     }
 }

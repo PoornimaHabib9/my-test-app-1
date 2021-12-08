@@ -7,7 +7,7 @@ export async function updateCourse(event){
     let params={
         TableName:process.env.TABLE_NAME,
         Key:{
-            courseId:parseInt(event.pathParameters.id),
+            courseId:event.pathParameters.id,
             userId:event.requestContext.authorizer.iam.cognitoIdentity.identityId
         },
         UpdateExpression:"SET courseName=:courseName,courseDescription=:courseDescription",
